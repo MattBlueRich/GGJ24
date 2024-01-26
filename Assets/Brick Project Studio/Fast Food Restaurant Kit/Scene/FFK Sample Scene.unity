@@ -16935,6 +16935,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4660633920524462766, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 749d9108aeb1b9b49a13b7b40f64d976, type: 2}
     - target: {fileID: 5341585982705921298, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -17015,6 +17019,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8077126901493310059, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca78f2e901f0e1c42ab8cd934e8d22d5, type: 2}
     - target: {fileID: 8691100925370420170, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -27551,6 +27559,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4660633920524462766, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c5aec6f5dd933b145aefab747bfaf822, type: 2}
     - target: {fileID: 5341585982705921298, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -27623,6 +27635,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8077126901493310059, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c5aec6f5dd933b145aefab747bfaf822, type: 2}
     - target: {fileID: 9113561252080322206, guid: d6112008cba14c147b799fa5f0944f3d, type: 3}
       propertyPath: m_Name
       value: Custom simple human_prefab
