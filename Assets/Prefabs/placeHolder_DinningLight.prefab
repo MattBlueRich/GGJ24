@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6801322990677053020}
   m_Layer: 0
-  m_Name: placeHolder_KitchenLight
+  m_Name: placeHolder_DinningLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
