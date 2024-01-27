@@ -3476,7 +3476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 9113561252080322206, guid: e5c80017566a7e94d819ffccbeef9aab, type: 3}
   customerSpawnPoint: {fileID: 1239898092}
-  timeToWaitBetweenCustomerSpawns: 5
 --- !u!114 &253723542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28979,7 +28978,7 @@ MonoBehaviour:
   interactKey: 101
   quitKey: 27
   onFoodDelivered: {fileID: 11400000, guid: 4bec4056f0a31e84fadb9aceca508394, type: 2}
-  playerHasQuit: {fileID: 0}
+  playerHasQuit: {fileID: 11400000, guid: bec5d424e7178e24e992b841bb9c632d, type: 2}
 --- !u!1001 &1837700003
 PrefabInstance:
   m_ObjectHideFlags: 0
