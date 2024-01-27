@@ -18,25 +18,25 @@ public class spawnTargetAndCustomer : MonoBehaviour
     {
         CSS = GetComponent<customerSpawningScript>();
 
-        currentTime = timeToWaitBetweenCustomerSpawns;
+        //currentTime = timeToWaitBetweenCustomerSpawns;
     }
 
     void Update()
     {
-        currentTime -= Time.deltaTime;
+        //currentTime -= Time.deltaTime;
 
-        if(currentTime <= 0.0f)
-        {
-            if (needToSpawnTarget ) 
-                spawnNewTarget();
-            else
-                spawnNewCustomer();
-
-            currentTime = timeToWaitBetweenCustomerSpawns;
-        }
+        //if(currentTime <= 0.0f)
+        //{
+        //    if (needToSpawnTarget ) 
+        //        spawnNewTarget();
+        //    else
+        //       spawnNewCustomer();
+        //
+        //    currentTime = timeToWaitBetweenCustomerSpawns;
+        //}
     }
 
-    void spawnNewTarget()
+    public void spawnNewTarget()
     {
         //need some way to randomize the appearance of the target
         //and save that data for the player to look for

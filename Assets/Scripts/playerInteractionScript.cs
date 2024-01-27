@@ -10,6 +10,7 @@ public class playerInteractionScript : MonoBehaviour
     public string foodPickUp3Tag = "foodPartThree";
     public string foodDropOffTag = "foodDropPoint";
     public KeyCode interactKey = KeyCode.E;
+    public KeyCode quitKey = KeyCode.Escape;
 
     bool canPickUpFood = false;
     int nextStep = 1;
@@ -22,6 +23,7 @@ public class playerInteractionScript : MonoBehaviour
     bool stageHasBeenPickedUp = false;
 
     public GameEvent onFoodDelivered;
+    public GameEvent playerHasQuit;
     
     GameObject refrenceToCurrentFlagTrigger = null; //this will only work as long as there arnt multiple overlapping flag triggers
 
@@ -58,6 +60,11 @@ public class playerInteractionScript : MonoBehaviour
                 onFoodDelivered.Raise();
                 foodHasBeenFinished = false;
             }
+        }
+
+        if(Input.GetKey(quitKey))
+        {
+            playerHasQuit.Raise();
         }
     }
 
