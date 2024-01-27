@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - customerFlag
+  - stealingpoint
+  - sittingpoint
+  - pickuppoint
+  - waypoint
+  - foodPickUpPoint
+  - foodDropPoint
   layers:
   - Default
   - TransparentFX

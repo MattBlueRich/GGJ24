@@ -89,7 +89,7 @@ public struct customerAtributes
     customerAtributes
         ( 
         bool hasHair, customer_hairType hairTypeIs, customer_hairColour hairColourIs,
-        customer_beardType beardTypeIs, customer_hat hatTypeIs, customer_chain chainTypeIs,
+        bool hasBeard, customer_beardType beardTypeIs, customer_hat hatTypeIs, customer_chain chainTypeIs,
         bool hasCompleteSuit, customer_completeSuit completeSuitIs, 
         customer_top topIs, customer_bottom bottemIs, customer_shoes shoesIs
         )
@@ -98,6 +98,7 @@ public struct customerAtributes
         Hair = hasHair;
         hairType = hairTypeIs;
         hairColour = hairColourIs;
+        beard = hasBeard;
         beardType = beardTypeIs;
         hatType = hatTypeIs;
         chainType = chainTypeIs;
@@ -111,6 +112,7 @@ public struct customerAtributes
     bool Hair;
     customer_hairType hairType; 
     customer_hairColour hairColour;
+    bool beard;
     customer_beardType beardType;
     customer_hat hatType;
     customer_chain chainType;

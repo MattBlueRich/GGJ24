@@ -6998,6 +6998,7 @@ GameObject:
   - component: {fileID: -1004402832294210384}
   - component: {fileID: 2216394921432727122}
   - component: {fileID: -3563372874631481371}
+  - component: {fileID: 4567031127270632594}
   m_Layer: 0
   m_Name: AI Custom simple human_prefab
   m_TagString: Untagged
@@ -7086,6 +7087,7 @@ MonoBehaviour:
   OrderFlag: {fileID: 0}
   ParentGameObjectToSittingFlags: {fileID: 0}
   ExitFlag: {fileID: 0}
+  instantated: 1
   flagTollerance: 0.5
   movementSpeed: 5
   secondsToWaitBeforeTableIsClear: 5
@@ -7126,3 +7128,31 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4567031127270632594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113561252080322206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1dc173e4a450243a40d3b020137fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4bec4056f0a31e84fadb9aceca508394, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1004402832294210384}
+        m_TargetAssemblyTypeName: basicCustomerScript, Assembly-CSharp
+        m_MethodName: orderHasBeenGiven
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

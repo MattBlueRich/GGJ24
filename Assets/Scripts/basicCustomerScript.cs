@@ -88,15 +88,15 @@ public class basicCustomerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            //Debug testing
-
-            if (currentState == state.Waiting_For_Order && hasOrderBeenGiven==false)
-            {
-                hasOrderBeenGiven = true;
-            }
-        }
+        //if (Input.GetKeyUp(KeyCode.E))
+        //{
+        //   //Debug testing
+        //
+        //    if (currentState == state.Waiting_For_Order && hasOrderBeenGiven==false)
+        //    {
+        //        orderHasBeenGiven();
+        //    }
+        //}
 
         think();    //the AI will think about what it is doing (choosing movement flag)
         act();     //the AI will then move act based on its choice
@@ -353,7 +353,8 @@ public class basicCustomerScript : MonoBehaviour
         //pass in a struct of what the order contains
 
         //this will be called when the player gives an order
-        hasOrderBeenGiven = true;
+        if(currentState == state.Waiting_For_Order)
+            hasOrderBeenGiven = true;
     }
 
     bool checkOrderIsCorrect()
