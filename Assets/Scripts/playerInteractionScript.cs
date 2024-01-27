@@ -5,13 +5,20 @@ using UnityEngine;
 public class playerInteractionScript : MonoBehaviour
 {
 
-    public string foodPickUpTag = "foodPickUpPoint";
+    public string foodPickUp1Tag = "foodPartOne";
+    public string foodPickUp2Tag = "foodPartTwo";
+    public string foodPickUp3Tag = "foodPartThree";
     public string foodDropOffTag = "foodDropPoint";
     public KeyCode interactKey = KeyCode.E;
 
     bool canPickUpFood = false;
-    bool FoodHasBeenPickedUp = false;
+    int nextStep = 1;
+
+    bool foodHasBeenFinished = false;
     bool canDeliverFood = false;
+
+    int currentFoodStep = 0;
+    int triggerFoodStage = 0;
 
     public GameEvent onFoodDelivered;
     
@@ -26,17 +33,25 @@ public class playerInteractionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        nextStep = currentFoodStep + 1;
+
+        if(!foodHasBeenFinished && currentFoodStep == 3)
+        {
+            foodHasBeenFinished=true;
+            currentFoodStep=0;
+        }
+
         if(Input.GetKeyDown(interactKey))
         {
             if (canPickUpFood)
-                FoodHasBeenPickedUp = true;
-        
-            if(FoodHasBeenPickedUp&&canDeliverFood)
             {
-                //this is so scuffed - such a horrible way of using a function in a diffrent script (if i have extra time do it through events)
-                
+                foodHasBeenFinished = true;
+            }
+        
+            if(foodHasBeenFinished&&canDeliverFood)
+            {                
                 onFoodDelivered.Raise();
-                FoodHasBeenPickedUp = false;
+                foodHasBeenFinished = false;
             }
         }
     }
@@ -46,9 +61,15 @@ public class playerInteractionScript : MonoBehaviour
         if (other.gameObject.GetComponent<TriggerScript>().getHasFlag())
             refrenceToCurrentFlagTrigger = other.gameObject;
         
-        if (other.gameObject.tag == foodPickUpTag)
+        if (other.gameObject.tag == foodPickUp1Tag)
         {
             canPickUpFood = true;
+            triggerFoodStage = 1;
+        }
+        else if (other.gameObject.tag == foodPickUp2Tag)
+        {
+            canPickUpFood= true;
+            triggerFoodStage = 2;
         }
         else if(other.gameObject.tag == foodDropOffTag)
         {
@@ -61,10 +82,16 @@ public class playerInteractionScript : MonoBehaviour
         if (refrenceToCurrentFlagTrigger != null)
             refrenceToCurrentFlagTrigger = null;
 
-        if(other.gameObject.tag == foodPickUpTag)
+        if(other.gameObject.tag == foodPickUp1Tag)
         {
             canPickUpFood=false;
+            triggerFoodStage = 0;
         }    
+        else if (other.gameObject.tag == foodPickUp2Tag)
+        {
+            canPickUpFood=false;
+            triggerFoodStage = 0;
+        }
         else if(other.gameObject.tag == foodDropOffTag)
         {
             canDeliverFood=false;
