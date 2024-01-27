@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum FlagTypes   //hold the flagTypes - this can be expanded to include more flag types
 {
+    flag_spawn,
     flag_wait_at_counter,
     flag_sitting_at_table,
     flag_exit

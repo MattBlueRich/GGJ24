@@ -31,7 +31,7 @@ public class basicCustomerScript : MonoBehaviour
     public GameObject ExitFlag;
 
     state currentState = state.NeedToOrder;
-    state wantedState = state.NeedToOrder; 
+    state wantedState = state.NeedToOrder;
 
     bool isAtMovementFlag = false;
     bool justFinishedAction = true;
@@ -39,6 +39,8 @@ public class basicCustomerScript : MonoBehaviour
     GameObject currentMovementFlag = null;
 
     //stats
+    public bool instantated = true; //true by defalt as most if not all will be spawn through script
+
     public float flagTollerance = 0.5f;
 
     public float movementSpeed = 5;
@@ -50,7 +52,9 @@ public class basicCustomerScript : MonoBehaviour
     public int maxTimeToTakeEating = 15;
     int timeToTakeEating = 0;
 
+    bool hasClearedLastFlag = false;
     bool hasOrderBeenGiven = false;
+    
 
     bool hasStartedEating = false;
     bool hasFinishedEating = false;
@@ -61,19 +65,34 @@ public class basicCustomerScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         BPFC = gameObject.AddComponent<basicPathFindingCustomer>();
 
-        
-        timeToTakeEating = Random.Range(minTimeToTakeEating, maxTimeToTakeEating+1);
+        if (instantated)
+        {
+            Player = GameObject.Find("Player");
+            GameObject CAIF = GameObject.Find("customerAIFlags");
+
+            foreach (Transform childGO in CAIF.transform)
+            {
+                if (childGO.name == "orderFlag")
+                    OrderFlag = childGO.gameObject;
+                else if (childGO.name == "exitFlag")
+                    ExitFlag = childGO.gameObject;
+                else if (childGO.name == "eatingLocation")
+                    ParentGameObjectToSittingFlags = childGO.gameObject;
+            }
+        }
+
+        timeToTakeEating = Random.Range(minTimeToTakeEating, maxTimeToTakeEating + 1);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.E)) 
+        if (Input.GetKeyUp(KeyCode.E))
         {
             //Debug testing
 
-            if (currentState == state.Waiting_For_Order)
+            if (currentState == state.Waiting_For_Order && hasOrderBeenGiven==false)
             {
                 hasOrderBeenGiven = true;
             }
@@ -85,9 +104,9 @@ public class basicCustomerScript : MonoBehaviour
 
     void think()
     {
-        if(!isAtMovementFlag)
-        {   
-            if(currentState==state.Waiting_For_Space)
+        if (!isAtMovementFlag)
+        {
+            if (currentState == state.Waiting_For_Space)
             {
                 GameObject nextMovementFlag = null;
                 nextMovementFlag = findNextMovementFlag(wantedState);
@@ -100,12 +119,12 @@ public class basicCustomerScript : MonoBehaviour
             }
             else
             {
-                if(justFinishedAction)
+                if (justFinishedAction)
                 {
                     //find next flag - also happens as soon as the customer starts
                     bool flagWasFound = false;
                     flagWasFound = updateFlagsAndStates();
-                    if(flagWasFound) 
+                    if (flagWasFound)
                     {
                         justFinishedAction = false;
                         BPFC.updateTarget(currentMovementFlag.transform);
@@ -116,8 +135,8 @@ public class basicCustomerScript : MonoBehaviour
                     if (currentMovementFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
                     {
                         //old flag was being used need to find a new one
-                        
-                        if(updateFlagsAndStates())
+
+                        if (updateFlagsAndStates())
                             BPFC.updateTarget(currentMovementFlag.transform);
                     }
 
@@ -125,6 +144,7 @@ public class basicCustomerScript : MonoBehaviour
                     {
                         //if the customer is at the location of the movement flag
                         BPFC.updateCanMove(false);
+                        hasClearedLastFlag = false;
 
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setIsBeingUsed(true);
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setCurrentlyBeingUsedBy(gameObject);
@@ -152,7 +172,7 @@ public class basicCustomerScript : MonoBehaviour
 
                     }
                 }
-            } 
+            }
         }
         else
         {
@@ -166,7 +186,7 @@ public class basicCustomerScript : MonoBehaviour
             else if (currentState == state.Waiting_For_Order)
             {
                 //this will need a function that checks for a given order and check if order was correct
-                if(checkOrderIsCorrect())
+                if (checkOrderIsCorrect())
                 {
                     justFinishedAction = true;
                     currentState = state.NeedToEat;
@@ -187,7 +207,7 @@ public class basicCustomerScript : MonoBehaviour
                 }
 
                 //this will need a function that will wait a random amount of time then will move to the NeedToLeave state
-                if(hasFinishedEating)
+                if (hasFinishedEating)
                 {
                     //task finished so change state and mark flag as empty
                     justFinishedAction = true;
@@ -201,7 +221,7 @@ public class basicCustomerScript : MonoBehaviour
 
     void act()
     {
-        switch(currentState) 
+        switch (currentState)
         {
             case state.Waiting_For_Space:
                 rb.velocity = new Vector3(0, 0, 0);
@@ -211,7 +231,7 @@ public class basicCustomerScript : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
                 break;
             case state.Waiting_To_Finish_Eating:
-                rb.velocity = new Vector3(0,0,0);
+                rb.velocity = new Vector3(0, 0, 0);
                 break;
             default:
                 //move the player towards its target 
@@ -228,32 +248,32 @@ public class basicCustomerScript : MonoBehaviour
         //if no empty flag was found then it will return null
         GameObject returnFlag = null;
 
-        if(currentState == state.NeedToOrder)
+        if (currentState == state.NeedToOrder)
         {
-            if(!OrderFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
+            if (!OrderFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
             {
                 returnFlag = OrderFlag;
             }
         }
-        else if(currentState == state.NeedToEat)
+        else if (currentState == state.NeedToEat)
         {
             bool seatFound = false;
-            foreach(Transform child in ParentGameObjectToSittingFlags.transform)    //loop of each of the sitting flags an checks if it is being used
+            foreach (Transform child in ParentGameObjectToSittingFlags.transform)    //loop of each of the sitting flags an checks if it is being used
             {
                 //as this is a for loop they will always fill up the seats in oder
 
-                if(!child.gameObject.GetComponent<movementFlag>().movementFlag_getIsBeingUsed() && !seatFound)
+                if (!child.gameObject.GetComponent<movementFlag>().movementFlag_getIsBeingUsed() && !seatFound)
                 {
                     seatFound = true;
                     returnFlag = child.gameObject;
                 }
             }
         }
-        else if(currentState == state.NeedToLeave)
+        else if (currentState == state.NeedToLeave)
         {
-            if(!ExitFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
+            if (!ExitFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
             {
-                returnFlag = ExitFlag; 
+                returnFlag = ExitFlag;
             }
         }
 
@@ -288,12 +308,12 @@ public class basicCustomerScript : MonoBehaviour
         bool xCorrect = false;
         bool yCorrect = false;
 
-        if (customerTransform.position.x >= flagTransform.position.x-flagTollerance && customerTransform.position.x <= flagTransform.position.y+flagTollerance)
+        if (customerTransform.position.x >= flagTransform.position.x - flagTollerance && customerTransform.position.x <= flagTransform.position.y + flagTollerance)
         {
             xCorrect = true;
         }
 
-        if(customerTransform.position.z >= flagTransform.position.z-flagTollerance && customerTransform.position.z <= flagTransform.position.z+flagTollerance)
+        if (customerTransform.position.z >= flagTransform.position.z - flagTollerance && customerTransform.position.z <= flagTransform.position.z + flagTollerance)
         {
             yCorrect = true;
         }
@@ -307,17 +327,21 @@ public class basicCustomerScript : MonoBehaviour
     IEnumerator waitToClearFlag(float waitTime, movementFlag flagToClear)
     {
         //this will wait for the amout of time then will clear the pass in flag
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            flagToClear.movementFlag_setIsBeingUsed(false);
+            if (!hasClearedLastFlag)
+            {
+                flagToClear.movementFlag_setIsBeingUsed(false);
+                hasClearedLastFlag = true;
+            }
         }
     }
 
-    IEnumerator startEatingCountdown(float waitTime) 
+    IEnumerator startEatingCountdown(float waitTime)
     {
         hasStartedEating = true;
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(waitTime);
             hasFinishedEating = true;
@@ -334,7 +358,7 @@ public class basicCustomerScript : MonoBehaviour
 
     bool checkOrderIsCorrect()
     {
-        if(!hasOrderBeenGiven)
+        if (!hasOrderBeenGiven)
             return false;
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////check if order is correct
