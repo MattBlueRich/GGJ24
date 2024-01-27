@@ -19,6 +19,7 @@ public class playerInteractionScript : MonoBehaviour
 
     int currentFoodStep = 0;
     int triggerFoodStage = 0;
+    bool stageHasBeenPickedUp = false;
 
     public GameEvent onFoodDelivered;
     
@@ -45,7 +46,11 @@ public class playerInteractionScript : MonoBehaviour
         {
             if (canPickUpFood)
             {
-                foodHasBeenFinished = true;
+                if(nextStep == triggerFoodStage && !stageHasBeenPickedUp)
+                {
+                    currentFoodStep = nextStep;
+                    stageHasBeenPickedUp=true;
+                }
             }
         
             if(foodHasBeenFinished&&canDeliverFood)
@@ -71,6 +76,11 @@ public class playerInteractionScript : MonoBehaviour
             canPickUpFood= true;
             triggerFoodStage = 2;
         }
+        else if(other.gameObject.tag== foodPickUp3Tag)
+        {
+            canPickUpFood = true;
+            triggerFoodStage = 3;
+        }
         else if(other.gameObject.tag == foodDropOffTag)
         {
             canDeliverFood= true;
@@ -86,11 +96,19 @@ public class playerInteractionScript : MonoBehaviour
         {
             canPickUpFood=false;
             triggerFoodStage = 0;
+            stageHasBeenPickedUp = false;
         }    
         else if (other.gameObject.tag == foodPickUp2Tag)
         {
             canPickUpFood=false;
             triggerFoodStage = 0;
+            stageHasBeenPickedUp = false;
+        }
+        else if(other.gameObject.tag == foodPickUp3Tag)
+        {
+            canPickUpFood = false;
+            triggerFoodStage = 0;
+            stageHasBeenPickedUp = false;
         }
         else if(other.gameObject.tag == foodDropOffTag)
         {

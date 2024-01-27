@@ -52,7 +52,6 @@ public class basicCustomerScript : MonoBehaviour
     public int maxTimeToTakeEating = 15;
     int timeToTakeEating = 0;
 
-    bool hasClearedLastFlag = false;
     bool hasOrderBeenGiven = false;
     
 
@@ -144,7 +143,7 @@ public class basicCustomerScript : MonoBehaviour
                     {
                         //if the customer is at the location of the movement flag
                         BPFC.updateCanMove(false);
-                        hasClearedLastFlag = false;
+                        //hasClearedLastFlag = false;
 
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setIsBeingUsed(true);
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setCurrentlyBeingUsedBy(gameObject);
@@ -327,25 +326,18 @@ public class basicCustomerScript : MonoBehaviour
     IEnumerator waitToClearFlag(float waitTime, movementFlag flagToClear)
     {
         //this will wait for the amout of time then will clear the pass in flag
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            if (!hasClearedLastFlag)
-            {
-                flagToClear.movementFlag_setIsBeingUsed(false);
-                hasClearedLastFlag = true;
-            }
-        }
+        yield return new WaitForSeconds(waitTime);
+            
+        flagToClear.movementFlag_setIsBeingUsed(false);
+  
     }
 
     IEnumerator startEatingCountdown(float waitTime)
     {
         hasStartedEating = true;
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            hasFinishedEating = true;
-        }
+        
+        yield return new WaitForSeconds(waitTime);
+        hasFinishedEating = true;  
     }
 
     public void orderHasBeenGiven()

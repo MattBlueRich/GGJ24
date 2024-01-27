@@ -9,8 +9,10 @@ TagManager:
   - sittingpoint
   - pickuppoint
   - waypoint
-  - foodPickUpPoint
   - foodDropPoint
+  - foodPartOne
+  - foodPartTwo
+  - foodPartThree
   layers:
   - Default
   - TransparentFX
