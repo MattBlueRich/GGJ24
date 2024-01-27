@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public enum FlagTypes   //hold the flagTypes - this can be expanded to include more flag types
@@ -16,6 +17,7 @@ public class movementFlag : MonoBehaviour
 
     public FlagTypes flagType;  //hold the type it is so other can know what it is
     bool currentBeingUsed = false;  //checks if it is being used - so nothing can be in the same space
+    GameObject currentlyBeingUsedBy = null;
     
     public bool movementFlag_getIsBeingUsed()   //could make the bool public but doing it this way is safer
     {
@@ -24,6 +26,21 @@ public class movementFlag : MonoBehaviour
 
     public void movementFlag_setIsBeingUsed(bool updatedIsBeingUsed)
     {
+        if(!updatedIsBeingUsed)
+        {
+            currentlyBeingUsedBy = null;
+        }
+
         currentBeingUsed = updatedIsBeingUsed;
+    }
+
+    public GameObject movementFlag_getCurrentlyBeingUsedBy()
+    {
+        return currentlyBeingUsedBy;
+    }
+
+    public void movementFlag_setCurrentlyBeingUsedBy(GameObject newBeingUseBy)
+    {
+        currentlyBeingUsedBy=newBeingUseBy;
     }
 }
