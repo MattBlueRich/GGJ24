@@ -21,6 +21,7 @@ enum state
 
 public class basicCustomerScript : MonoBehaviour
 {
+    basicPathFindingCustomer BPFC;
     Rigidbody rb;
 
     public GameObject Player;
@@ -58,11 +59,11 @@ public class basicCustomerScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        BPFC = gameObject.AddComponent<basicPathFindingCustomer>();
 
         
         timeToTakeEating = Random.Range(minTimeToTakeEating, maxTimeToTakeEating+1);
 
-        Debug.Log(timeToTakeEating);
     }
 
     // Update is called once per frame
@@ -107,6 +108,7 @@ public class basicCustomerScript : MonoBehaviour
                     if(flagWasFound) 
                     {
                         justFinishedAction = false;
+                        BPFC.updateTarget(currentMovementFlag.transform);
                     };
                 }
                 else
@@ -114,12 +116,16 @@ public class basicCustomerScript : MonoBehaviour
                     if (currentMovementFlag.GetComponent<movementFlag>().movementFlag_getIsBeingUsed())
                     {
                         //old flag was being used need to find a new one
-                        updateFlagsAndStates();
+                        
+                        if(updateFlagsAndStates())
+                            BPFC.updateTarget(currentMovementFlag.transform);
                     }
 
                     if (checkIfAtFlag(gameObject.transform, currentMovementFlag.transform))
                     {
                         //if the customer is at the location of the movement flag
+                        BPFC.updateCanMove(false);
+
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setIsBeingUsed(true);
                         currentMovementFlag.GetComponent<movementFlag>().movementFlag_setCurrentlyBeingUsedBy(gameObject);
 
@@ -209,8 +215,9 @@ public class basicCustomerScript : MonoBehaviour
                 break;
             default:
                 //move the player towards its target 
-                gameObject.transform.LookAt(new Vector3(currentMovementFlag.transform.position.x, gameObject.transform.position.y, currentMovementFlag.transform.position.z));
-                rb.velocity = transform.forward * movementSpeed;
+                //gameObject.transform.LookAt(new Vector3(currentMovementFlag.transform.position.x, gameObject.transform.position.y, currentMovementFlag.transform.position.z));
+                //rb.velocity = transform.forward * movementSpeed;
+                BPFC.updateCanMove(true);
                 break;
         }
     }
@@ -270,6 +277,7 @@ public class basicCustomerScript : MonoBehaviour
             wantedState = currentState; //no free slots so go to waiting - and update wanted
             currentState = state.Waiting_For_Space;
             found = false;
+            BPFC.updateCanMove(false);
         }
 
         return found;
