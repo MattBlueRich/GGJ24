@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/mainMenu.unity
+    guid: d126bf7572bab0244bd64558a3a27d5b
+  - enabled: 1
+    path: Assets/Scenes/theCoolerLevel.unity
+    guid: aec5e0c93f6347848a9b23d59261a603
   m_configObjects: {}

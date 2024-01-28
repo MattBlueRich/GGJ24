@@ -23,7 +23,7 @@ public class playerInteractionScript : MonoBehaviour
     bool stageHasBeenPickedUp = false;
 
     public GameEvent onFoodDelivered;
-    public GameEvent playerHasQuit;
+    public GameEvent playerBackToMenu;
     
     GameObject refrenceToCurrentFlagTrigger = null; //this will only work as long as there arnt multiple overlapping flag triggers
 
@@ -64,7 +64,7 @@ public class playerInteractionScript : MonoBehaviour
 
         if(Input.GetKey(quitKey))
         {
-            playerHasQuit.Raise();
+            playerBackToMenu.Raise();
         }
     }
 

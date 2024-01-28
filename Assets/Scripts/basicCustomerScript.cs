@@ -21,6 +21,11 @@ enum state
 
 public class basicCustomerScript : MonoBehaviour
 {
+    /// <summary>
+    /// This was alot of fun to write but toke way too long  
+    /// Good luck reading my 4am code
+    /// </summary>
+
     basicPathFindingCustomer BPFC;
     Rigidbody rb;
 

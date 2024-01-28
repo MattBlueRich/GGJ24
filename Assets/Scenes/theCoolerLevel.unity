@@ -3543,13 +3543,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1dc173e4a450243a40d3b020137fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: bec5d424e7178e24e992b841bb9c632d, type: 2}
+  gameEvent: {fileID: 11400000, guid: 86de66fadb2e4ea4c9d5c0410aa19b0e, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 253723546}
         m_TargetAssemblyTypeName: sceneManagerScript, Assembly-CSharp
-        m_MethodName: quitTheGame
+        m_MethodName: ToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28978,7 +28978,7 @@ MonoBehaviour:
   interactKey: 101
   quitKey: 27
   onFoodDelivered: {fileID: 11400000, guid: 4bec4056f0a31e84fadb9aceca508394, type: 2}
-  playerHasQuit: {fileID: 11400000, guid: bec5d424e7178e24e992b841bb9c632d, type: 2}
+  playerBackToMenu: {fileID: 11400000, guid: 86de66fadb2e4ea4c9d5c0410aa19b0e, type: 2}
 --- !u!1001 &1837700003
 PrefabInstance:
   m_ObjectHideFlags: 0
